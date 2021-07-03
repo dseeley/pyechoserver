@@ -29,4 +29,4 @@ class BasicTestCase(unittest.TestCase):
         response = urlopen('http://localhost:' + str(self.srv_port))
         resp_data = response.read()
         self.assertEqual(response.code, 200)
-        self.assertRegex(resp_data, bytes("Hello from '.*?'!\n", "utf-8"))
+        self.assertRegex(resp_data, bytes("Hello from '.*?' \((?:\d{1,3}\.){3}\d{1,3}\)!\n", "utf-8"))

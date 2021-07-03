@@ -4,6 +4,21 @@ import signal
 import sys
 import os
 import platform
+import socket
+
+
+# Returns the "primary" IP on the local machine (the one with a default route).
+# From https://stackoverflow.com/a/28950776/12491741
+def get_default_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('10.255.255.255', 1))  # doesn't have to be reachable
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
 
 class MyHandler(BaseHTTPRequestHandler):
@@ -12,8 +27,9 @@ class MyHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            print("Writing \"Hello from '" + str(platform.node()) + "'!\"")
-            self.wfile.write(bytes("Hello from '" + str(platform.node()) + "'!\n", "utf-8"))
+            return_string = "Hello from '" + str(platform.node()) + "' (" + get_default_ip() + ")!"
+            print("Writing \"" + return_string + "\"\n")
+            self.wfile.write(bytes(return_string + "\n", "utf-8"))
         else:
             self.send_response(400)
 

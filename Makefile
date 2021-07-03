@@ -1,5 +1,3 @@
-all: dockerpush
-
 TAG := $(if $(TAG),$(TAG),latest)
 IMG_NAME := $(if $(IMG_NAME),$(IMG_NAME),pyechoserver)
 DOCKERREPO = dseeley/$(IMG_NAME)
