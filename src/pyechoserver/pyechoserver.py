@@ -5,6 +5,7 @@ import sys
 import os
 import platform
 import socket
+import time
 
 
 # Returns the "primary" IP on the local machine (the one with a default route).
@@ -27,7 +28,7 @@ class MyHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            return_string = "Hello from '" + str(platform.node()) + "' (" + get_default_ip() + ")!"
+            return_string = "[" + str(time.time()) + "] Hello from '" + str(platform.node()) + "' (" + get_default_ip() + ")!"
             print("Writing \"" + return_string + "\"\n")
             self.wfile.write(bytes(return_string + "\n", "utf-8"))
         else:
