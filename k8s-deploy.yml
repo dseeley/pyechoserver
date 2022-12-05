@@ -1,7 +1,8 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pyechoserver
+  namespace: default
 spec:
   replicas: 2
   template:
@@ -11,6 +12,6 @@ spec:
     spec:
       containers:
       - name: pyechoserver
-        image: dseeley/pyechoserver:1.0.0
+        image: dseeley/pyechoserver:1.0.3
         ports:
         - containerPort: 8080

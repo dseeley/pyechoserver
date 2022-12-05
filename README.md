@@ -35,7 +35,7 @@ Runs built-in tests, then builds a docker image and pushes to DockerHub with the
 
 ### Run in docker (on `SRV_PORT`):
 ```bash
-docker run -d --name pyechoserver -e SRV_PORT=8090 dseeley/pyechoserver:latest
+docker run -d --name pyechoserver -e SRV_PORT=8090 -p 8090:8090 dseeley/pyechoserver:latest
 ```
 
 ### Run in k8s
